@@ -36,17 +36,28 @@ function update(dt) {
 
   // 左右の壁
   if (x + r > canvas.width) {
-    vx = -vx;
-  }
-  if (x - r < 0) {
+    x = canvas.width - r;
     vx = -vx;
   }
 
-  // 上下の壁
-  if (y + r > canvas.height) {
-    vy = -vy;
+  if (x - r < 0) {
+    x = r;
+    vx = -vx;
   }
+
+  // 下の壁に当たったとき
+  if (y + r > canvas.height) {
+    y = canvas.height - r;
+    vy = -vy;
+
+    // 速度を20%減らす
+    vx = vx * 0.8;
+    vy = vy * 0.8;
+  }
+
+  // 上の壁
   if (y - r < 0) {
+    y = r;
     vy = -vy;
   }
 }
